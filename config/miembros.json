@@ -1,0 +1,17 @@
+
+{
+  "_instrucciones": "rol solo admite: member | maintainer. El cargo lo define el equipo. Permiso de colaborador externo: pull | triage | push | maintain.",
+  "equipos": {
+    "plataforma-admins": [ { "usuario": "jhonjairosolerumbarila-ops", "rol": "maintainer" } ],
+    "equipo-backend":    [ { "usuario": "ivonnelizethmoreno-cloud", "rol": "member" } ],
+    "equipo-frontend":   [ { "usuario": "Estefa44445", "rol": "member" },
+                           { "usuario": "Gleidy725", "rol": "member" } ],
+    "equipo-datos":      [ { "usuario": "mikeforeros", "rol": "member" } ],
+    "equipo-devops":     [ { "usuario": "jhonjairosolerumbarila-ops", "rol": "maintainer" } ],
+    "equipo-qa":         [ { "usuario": "jhonjairosolerumbarila-ops", "rol": "maintainer" } ],
+    "equipo-analistas":  [ { "usuario": "ivonnelizethmoreno-cloud", "rol": "member" } ]
+  },
+  "colaboradores_externos": {
+    "spa-frontend-web": []
+  }
+}

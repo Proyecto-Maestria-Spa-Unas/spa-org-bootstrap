@@ -1,0 +1,22 @@
+name: ci
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  pipeline:
+    name: calidad / pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Sintaxis Bash
+        run: for f in bootstrap.sh lib/*.sh scripts/*.sh; do bash -n "$f"; done
+      - name: ShellCheck
+        run: shellcheck -x -S warning -e SC1091,SC2012,SC2034 bootstrap.sh lib/*.sh scripts/*.sh
+      - name: JSON de configuración válidos
+        run: for f in config/*.json; do jq empty "$f" && echo "✔ $f"; done

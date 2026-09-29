@@ -1,0 +1,73 @@
+{
+  ".github": {
+    "plataforma-admins": "admin",
+    "equipo-devops": "maintain"
+  },
+  "spa-docs": {
+    "plataforma-admins": "admin",
+    "equipo-analistas": "maintain",
+    "equipo-backend": "push",
+    "equipo-frontend": "push",
+    "equipo-datos": "push",
+    "equipo-qa": "push",
+    "equipo-devops": "push"
+  },
+  "spa-database": {
+    "plataforma-admins": "admin",
+    "equipo-datos": "maintain",
+    "equipo-backend": "push",
+    "equipo-qa": "push",
+    "equipo-devops": "push",
+    "equipo-frontend": "pull",
+    "equipo-analistas": "triage"
+  },
+  "spa-backend-api": {
+    "plataforma-admins": "admin",
+    "equipo-backend": "maintain",
+    "equipo-datos": "push",
+    "equipo-qa": "push",
+    "equipo-devops": "push",
+    "equipo-frontend": "pull",
+    "equipo-analistas": "triage"
+  },
+  "spa-frontend-web": {
+    "plataforma-admins": "admin",
+    "equipo-frontend": "maintain",
+    "equipo-qa": "push",
+    "equipo-devops": "push",
+    "equipo-backend": "pull",
+    "equipo-analistas": "triage"
+  },
+  "spa-qa": {
+    "plataforma-admins": "admin",
+    "equipo-qa": "maintain",
+    "equipo-backend": "push",
+    "equipo-frontend": "push",
+    "equipo-devops": "push",
+    "equipo-analistas": "triage"
+  },
+  "spa-devops-workflows": {
+    "plataforma-admins": "admin",
+    "equipo-devops": "maintain",
+    "equipo-qa": "push",
+    "equipo-backend": "pull",
+    "equipo-frontend": "pull",
+    "equipo-datos": "pull"
+  },
+  "spa-infra-aws": {
+    "plataforma-admins": "admin",
+    "equipo-devops": "maintain",
+    "equipo-backend": "pull",
+    "equipo-datos": "pull",
+    "equipo-qa": "pull"
+  },
+  "spa-template-servicio": {
+    "plataforma-admins": "admin",
+    "equipo-devops": "maintain",
+    "equipo-backend": "push"
+  },
+  "spa-org-bootstrap": {
+    "plataforma-admins": "admin",
+    "equipo-devops": "maintain"
+  }
+}

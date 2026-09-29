@@ -1,0 +1,22 @@
+name: ci
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+
+permissions:
+  contents: read
+
+jobs:
+  politica:
+    if: github.event_name == 'pull_request'
+    uses: __ORG__/spa-devops-workflows/.github/workflows/pr-policy.yml@main
+
+  calidad:
+    uses: __ORG__/spa-devops-workflows/.github/workflows/iac-ci.yml@main
+
+  seguridad:
+    uses: __ORG__/spa-devops-workflows/.github/workflows/security.yml@main
+    with:
+      scanners: misconfig,secret

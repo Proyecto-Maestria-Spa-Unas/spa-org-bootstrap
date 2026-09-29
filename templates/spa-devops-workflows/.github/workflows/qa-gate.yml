@@ -1,0 +1,94 @@
+# Puerta de QA: levanta el componente del PR y ejecuta la suite correspondiente de spa-qa.
+# Se activa con la variable de organización ENABLE_QA_GATE=true. Check resultante: "qa-gate / qa"
+# Requiere el secreto de organización QA_READ_TOKEN (fine-grained, solo lectura de contenido en spa-qa).
+name: qa-gate
+on:
+  workflow_call:
+    inputs:
+      suite: { type: string, required: true, description: "api | web" }
+      qa-ref: { type: string, default: "develop" }
+      python-version: { type: string, default: "3.12" }
+      node-version: { type: string, default: "22" }
+      api-base-url: { type: string, default: "", description: "API externa para la suite web (vacío = sin API)" }
+    secrets:
+      QA_READ_TOKEN:
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: app_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DB_URL: postgresql+psycopg://postgres:postgres@localhost:5432/app_test
+      JWT_SECRET: ci-only-not-a-secret
+      APP_ENV: test
+    steps:
+      - name: Código del PR
+        uses: actions/checkout@v4
+        with:
+          path: componente
+      - name: Suite de QA
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/spa-qa
+          ref: ${{ inputs.qa-ref }}
+          token: ${{ secrets.QA_READ_TOKEN }}
+          path: qa
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - name: Levantar API
+        if: inputs.suite == 'api'
+        working-directory: componente
+        run: |
+          pip install -q -r requirements.txt
+          nohup python -m uvicorn main:app --host 127.0.0.1 --port 8000 > ../api.log 2>&1 &
+          for i in $(seq 1 30); do curl -fs http://127.0.0.1:8000/api/v1/health && exit 0; sleep 2; done
+          cat ../api.log; exit 1
+
+      - uses: actions/setup-node@v4
+        if: inputs.suite == 'web'
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: Levantar frontend
+        if: inputs.suite == 'web'
+        working-directory: componente
+        env:
+          VITE_API_BASE_URL: ${{ inputs.api-base-url }}
+        run: |
+          npm ci && npm run build
+          nohup npx vite preview --host 127.0.0.1 --port 4173 --strictPort > ../web.log 2>&1 &
+          for i in $(seq 1 30); do curl -fs http://127.0.0.1:4173 >/dev/null && exit 0; sleep 2; done
+          cat ../web.log; exit 1
+
+      - name: Ejecutar suite ${{ inputs.suite }}
+        working-directory: qa
+        env:
+          API_BASE_URL: http://127.0.0.1:8000
+          WEB_BASE_URL: http://127.0.0.1:4173
+        run: |
+          pip install -q -r requirements.txt
+          if [ "${{ inputs.suite }}" = "web" ]; then python -m playwright install --with-deps chromium; fi
+          pytest "suites/${{ inputs.suite }}" -m "not lento" --junitxml=../reporte-qa.xml -v
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reporte-qa-${{ inputs.suite }}
+          path: |
+            reporte-qa.xml
+            *.log
+          if-no-files-found: ignore

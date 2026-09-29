@@ -1,0 +1,9 @@
+# mTLS estricto entre workloads del namespace, sin cambios en el código de la API.
+apiVersion: security.istio.io/v1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: spa-inventario
+spec:
+  mtls:
+    mode: STRICT

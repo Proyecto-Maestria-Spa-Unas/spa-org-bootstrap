@@ -1,0 +1,14 @@
+# Canary: 90 % a la versión estable (v1), 10 % a la nueva (v2). Ajustar pesos por etapa: 90/10 → 50/50 → 0/100.
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: backend-api
+  namespace: spa-inventario
+spec:
+  hosts: [backend-api]
+  http:
+    - retries: { attempts: 2, perTryTimeout: 3s, retryOn: "5xx,reset,connect-failure" }
+      timeout: 10s
+      route:
+        - { destination: { host: backend-api, subset: v1 }, weight: 90 }
+        - { destination: { host: backend-api, subset: v2 }, weight: 10 }

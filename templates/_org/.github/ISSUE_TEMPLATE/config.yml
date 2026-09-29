@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Especificación de requisitos
+    url: https://github.com/__ORG__/spa-docs
+    about: Consulte requisitos, historias y ADRs antes de abrir un issue.

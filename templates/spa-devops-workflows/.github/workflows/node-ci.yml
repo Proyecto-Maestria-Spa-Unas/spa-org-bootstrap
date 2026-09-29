@@ -1,0 +1,40 @@
+# CI Node/React: instalación reproducible, lint, pruebas con cobertura, build y auditoría.
+# Check resultante: "calidad / pipeline"
+name: node-ci
+on:
+  workflow_call:
+    inputs:
+      node-version: { type: string, default: "22" }
+      working-directory: { type: string, default: "." }
+
+permissions:
+  contents: read
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: npm
+          cache-dependency-path: ${{ inputs.working-directory }}/package-lock.json
+      - run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Pruebas y cobertura
+        run: npm run test:ci
+      - name: Build
+        run: npm run build
+      - name: Auditoría de dependencias
+        run: npm audit --omit=dev --audit-level=high
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cobertura-web
+          path: ${{ inputs.working-directory }}/coverage
+          if-no-files-found: ignore

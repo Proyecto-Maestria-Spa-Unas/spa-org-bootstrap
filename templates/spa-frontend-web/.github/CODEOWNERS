@@ -1,0 +1,5 @@
+*                            @__ORG__/equipo-frontend
+/src/services/auth/          @__ORG__/equipo-frontend @__ORG__/plataforma-admins
+/src/**/*.test.*             @__ORG__/equipo-frontend @__ORG__/equipo-qa
+/vercel.json                 @__ORG__/equipo-frontend @__ORG__/equipo-devops
+/.github/                    @__ORG__/equipo-devops

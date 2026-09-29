@@ -1,0 +1,7 @@
+*                             @__ORG__/equipo-backend
+/app/domain/                  @__ORG__/equipo-backend @__ORG__/equipo-analistas
+/app/infrastructure/db/       @__ORG__/equipo-backend @__ORG__/equipo-datos
+/app/infrastructure/security/ @__ORG__/equipo-backend @__ORG__/plataforma-admins
+/tests/                       @__ORG__/equipo-backend @__ORG__/equipo-qa
+/Dockerfile                   @__ORG__/equipo-backend @__ORG__/equipo-devops
+/.github/                     @__ORG__/equipo-devops

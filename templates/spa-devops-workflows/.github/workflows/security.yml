@@ -1,0 +1,27 @@
+# DevSecOps: vulnerabilidades en dependencias, secretos filtrados y malas configuraciones (IaC, Dockerfile).
+# Falla con severidad HIGH/CRITICAL. Check resultante: "seguridad / scan"
+name: security
+on:
+  workflow_call:
+    inputs:
+      severity: { type: string, default: "HIGH,CRITICAL" }
+      scanners: { type: string, default: "vuln,secret,misconfig" }
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Trivy (filesystem)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: ${{ inputs.scanners }}
+          severity: ${{ inputs.severity }}
+          ignore-unfixed: true
+          exit-code: "1"
+          format: table

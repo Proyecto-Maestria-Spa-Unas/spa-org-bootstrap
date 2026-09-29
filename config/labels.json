@@ -1,0 +1,122 @@
+[
+  {
+    "name": "historia-usuario",
+    "color": "1D76DB",
+    "description": "Historia de usuario (HU-xx)"
+  },
+  {
+    "name": "tarea",
+    "color": "0E8A16",
+    "description": "Tarea técnica derivada de una HU"
+  },
+  {
+    "name": "bug",
+    "color": "D73A4A",
+    "description": "Defecto confirmado"
+  },
+  {
+    "name": "deuda-tecnica",
+    "color": "FBCA04",
+    "description": "Mejora interna sin cambio funcional"
+  },
+  {
+    "name": "adr",
+    "color": "5319E7",
+    "description": "Registro de decisión de arquitectura"
+  },
+  {
+    "name": "decision-pendiente",
+    "color": "B60205",
+    "description": "Requiere validación del grupo de trabajo (sección 11)"
+  },
+  {
+    "name": "seguridad",
+    "color": "8B0000",
+    "description": "Seguridad / DevSecOps"
+  },
+  {
+    "name": "bloqueado",
+    "color": "5A5A5A",
+    "description": "Depende de otra tarea o decisión"
+  },
+  {
+    "name": "area/backend",
+    "color": "C5DEF5",
+    "description": "API FastAPI"
+  },
+  {
+    "name": "area/frontend",
+    "color": "C5DEF5",
+    "description": "React + Vite + Tailwind"
+  },
+  {
+    "name": "area/database",
+    "color": "C5DEF5",
+    "description": "PostgreSQL / Supabase"
+  },
+  {
+    "name": "area/qa",
+    "color": "C5DEF5",
+    "description": "Pruebas y calidad"
+  },
+  {
+    "name": "area/devops",
+    "color": "C5DEF5",
+    "description": "CI/CD, AWS, Kubernetes"
+  },
+  {
+    "name": "area/docs",
+    "color": "C5DEF5",
+    "description": "Documentación"
+  },
+  {
+    "name": "modulo/autenticacion",
+    "color": "BFD4F2",
+    "description": "HU-01"
+  },
+  {
+    "name": "modulo/usuarios",
+    "color": "BFD4F2",
+    "description": "HU-09"
+  },
+  {
+    "name": "modulo/catalogo",
+    "color": "BFD4F2",
+    "description": "HU-02, 03, 04, 05, 12"
+  },
+  {
+    "name": "modulo/movimientos",
+    "color": "BFD4F2",
+    "description": "HU-06, 07, 11, 13"
+  },
+  {
+    "name": "modulo/historial",
+    "color": "BFD4F2",
+    "description": "HU-08"
+  },
+  {
+    "name": "modulo/alertas",
+    "color": "BFD4F2",
+    "description": "HU-10"
+  },
+  {
+    "name": "prioridad/alta",
+    "color": "E11D21",
+    "description": "Bloquea el MVP"
+  },
+  {
+    "name": "prioridad/media",
+    "color": "F9A825",
+    "description": "Necesaria para el MVP completo"
+  },
+  {
+    "name": "prioridad/baja",
+    "color": "C2E0C6",
+    "description": "Deseable o sujeta a aprobación"
+  },
+  {
+    "name": "requiere-validacion",
+    "color": "D93F0B",
+    "description": "Funcionalidad sujeta a aprobación del grupo"
+  }
+]

@@ -1,0 +1,253 @@
+[
+  {
+    "name": ".github",
+    "description": "Perfil de la organización y archivos de comunidad por defecto (plantillas de PR/issues, CONTRIBUTING, SECURITY).",
+    "visibility": "public",
+    "template": false,
+    "topics": [
+      "organizacion",
+      "gobierno"
+    ],
+    "plantillas": [
+      "_org"
+    ],
+    "rama_integracion": false,
+    "milestones": false,
+    "entornos": [],
+    "checks": [],
+    "qa_gate": false,
+    "liberacion_qa": false
+  },
+  {
+    "name": "spa-docs",
+    "description": "Requisitos, historias de usuario, trazabilidad HU↔RF↔RN, ADRs y diagramas de arquitectura.",
+    "visibility": "public",
+    "template": false,
+    "topics": [
+      "documentacion",
+      "requisitos",
+      "adr"
+    ],
+    "plantillas": [
+      "_comun",
+      "spa-docs"
+    ],
+    "rama_integracion": false,
+    "milestones": true,
+    "entornos": [],
+    "checks": [],
+    "qa_gate": false,
+    "liberacion_qa": false
+  },
+  {
+    "name": "spa-database",
+    "description": "Esquema PostgreSQL/PostGIS en Supabase: migraciones, RLS, funciones, triggers de stock, seeds de catálogo y pruebas SQL.",
+    "visibility": "public",
+    "template": false,
+    "topics": [
+      "postgresql",
+      "supabase",
+      "postgis",
+      "migraciones"
+    ],
+    "plantillas": [
+      "_comun",
+      "spa-database"
+    ],
+    "rama_integracion": true,
+    "milestones": true,
+    "entornos": [
+      "staging",
+      "production"
+    ],
+    "checks": [
+      "politica / pr",
+      "calidad / pipeline",
+      "seguridad / scan"
+    ],
+    "qa_gate": false,
+    "liberacion_qa": true
+  },
+  {
+    "name": "spa-backend-api",
+    "description": "API REST FastAPI (arquitectura hexagonal): autenticación JWT, roles, productos, movimientos, historial y alertas.",
+    "visibility": "public",
+    "template": false,
+    "topics": [
+      "fastapi",
+      "python",
+      "sqlalchemy",
+      "hexagonal",
+      "jwt"
+    ],
+    "plantillas": [
+      "_comun",
+      "spa-backend-api"
+    ],
+    "rama_integracion": true,
+    "milestones": true,
+    "entornos": [
+      "development",
+      "staging",
+      "production"
+    ],
+    "checks": [
+      "politica / pr",
+      "calidad / pipeline",
+      "seguridad / scan"
+    ],
+    "qa_gate": true,
+    "liberacion_qa": true
+  },
+  {
+    "name": "spa-frontend-web",
+    "description": "Frontend React + Vite + Tailwind CSS: login, inventario, filtros, movimientos, historial, alertas y usuarios. Deploy en Vercel.",
+    "visibility": "public",
+    "template": false,
+    "topics": [
+      "react",
+      "vite",
+      "tailwindcss",
+      "vercel"
+    ],
+    "plantillas": [
+      "_comun",
+      "spa-frontend-web"
+    ],
+    "rama_integracion": true,
+    "milestones": true,
+    "entornos": [
+      "preview",
+      "production"
+    ],
+    "checks": [
+      "politica / pr",
+      "calidad / pipeline",
+      "seguridad / scan"
+    ],
+    "qa_gate": true,
+    "liberacion_qa": true
+  },
+  {
+    "name": "spa-qa",
+    "description": "Módulo de QA: pruebas de API, contrato, E2E (Playwright) y carga, trazadas a historias de usuario. Puerta de calidad antes del merge.",
+    "visibility": "public",
+    "template": false,
+    "topics": [
+      "qa",
+      "pytest",
+      "playwright",
+      "e2e"
+    ],
+    "plantillas": [
+      "_comun",
+      "spa-qa"
+    ],
+    "rama_integracion": true,
+    "milestones": true,
+    "entornos": [],
+    "checks": [
+      "politica / pr",
+      "calidad / pipeline"
+    ],
+    "qa_gate": false,
+    "liberacion_qa": false
+  },
+  {
+    "name": "spa-devops-workflows",
+    "description": "Workflows reutilizables de GitHub Actions (CI Python/Node/SQL/IaC, seguridad, política de PR y puerta de QA).",
+    "visibility": "public",
+    "template": false,
+    "topics": [
+      "github-actions",
+      "ci-cd",
+      "devsecops"
+    ],
+    "plantillas": [
+      "_comun",
+      "spa-devops-workflows"
+    ],
+    "rama_integracion": false,
+    "milestones": false,
+    "entornos": [],
+    "checks": [],
+    "qa_gate": false,
+    "compartir_workflows": true,
+    "liberacion_qa": false
+  },
+  {
+    "name": "spa-infra-aws",
+    "description": "Infraestructura como código en AWS: Terraform (VPC, EKS, ECR, RDS/PostGIS, Secrets), manifiestos Kubernetes e Istio (canary, mTLS).",
+    "visibility": "public",
+    "template": false,
+    "topics": [
+      "terraform",
+      "aws",
+      "eks",
+      "kubernetes",
+      "istio"
+    ],
+    "plantillas": [
+      "_comun",
+      "spa-infra-aws"
+    ],
+    "rama_integracion": true,
+    "milestones": false,
+    "entornos": [
+      "staging",
+      "production"
+    ],
+    "checks": [
+      "politica / pr",
+      "calidad / pipeline",
+      "seguridad / scan"
+    ],
+    "qa_gate": false,
+    "liberacion_qa": false
+  },
+  {
+    "name": "spa-template-servicio",
+    "description": "Plantilla para nuevos servicios/tecnologías (FastAPI hexagonal + CI + Docker). Usar con: gh repo create --template.",
+    "visibility": "public",
+    "template": true,
+    "topics": [
+      "plantilla",
+      "fastapi",
+      "microservicio"
+    ],
+    "plantillas": [
+      "_comun",
+      "spa-backend-api",
+      "spa-template-servicio"
+    ],
+    "rama_integracion": false,
+    "milestones": false,
+    "entornos": [],
+    "checks": [
+      "calidad / pipeline"
+    ],
+    "qa_gate": false,
+    "liberacion_qa": false
+  },
+  {
+    "name": "spa-org-bootstrap",
+    "description": "Organización como código: equipos, permisos, rulesets, historias y scripts de aprovisionamiento idempotentes.",
+    "visibility": "public",
+    "template": false,
+    "topics": [
+      "github",
+      "gobierno",
+      "infraestructura-como-codigo",
+      "bash"
+    ],
+    "plantillas": [],
+    "rama_integracion": false,
+    "milestones": false,
+    "entornos": [],
+    "checks": [
+      "calidad / pipeline"
+    ],
+    "qa_gate": false,
+    "liberacion_qa": false
+  }
+]

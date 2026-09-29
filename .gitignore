@@ -1,0 +1,3 @@
+diagnostico_*.txt
+*.log
+.env

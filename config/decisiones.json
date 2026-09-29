@@ -1,0 +1,12 @@
+[
+  { "titulo": "DEC-01 · ¿El rol Gerente forma parte definitiva del sistema?", "impacta": ["HU-09", "HU-08", "RF-13", "RF-14"] },
+  { "titulo": "DEC-02 · ¿Qué rol asume la gestión de usuarios si se elimina Gerente?", "impacta": ["HU-09", "RF-13"] },
+  { "titulo": "DEC-03 · ¿La Manicurista puede registrar entradas o solo salidas/consumos?", "impacta": ["HU-06", "HU-07", "RF-01"] },
+  { "titulo": "DEC-04 · ¿Las alertas de bajo stock son obligatorias u opcionales?", "impacta": ["HU-10", "RF-16", "RF-17", "RF-18"] },
+  { "titulo": "DEC-05 · ¿El filtro de movimientos por fechas es obligatorio?", "impacta": ["HU-08", "RF-15"] },
+  { "titulo": "DEC-06 · ¿Eliminar movimientos o anulación/corrección controlada?", "impacta": ["HU-13", "RF-20", "RN-13", "RNF-06"] },
+  { "titulo": "DEC-07 · Valores medibles de rendimiento y disponibilidad", "impacta": ["RNF-04", "RNF-05"] },
+  { "titulo": "DEC-08 · Políticas de contraseñas, recuperación de acceso y sesiones", "impacta": ["HU-01", "RNF-01"] },
+  { "titulo": "DEC-09 · Estrategia técnica de respaldo y recuperación", "impacta": ["RNF-10"] },
+  { "titulo": "DEC-10 · Catálogo definitivo de categorías y productos", "impacta": ["HU-02", "HU-04", "RF-12"] }
+]

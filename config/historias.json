@@ -1,0 +1,119 @@
+[
+  {
+    "id": "HU-01", "titulo": "Autenticación para ingreso al sistema",
+    "como": "usuario registrado", "quiero": "ingresar mediante usuario y contraseña", "para": "acceder de forma segura al sistema",
+    "criterios": ["El sistema solicita usuario y contraseña.", "Credenciales válidas permiten el acceso.", "Credenciales inválidas no permiten el acceso.", "El sistema identifica el rol del usuario después de autenticarse.", "Solo se muestran funcionalidades autorizadas."],
+    "trazabilidad": ["RF-01", "RNF-01", "RNF-07"],
+    "repos": ["spa-database", "spa-backend-api", "spa-frontend-web", "spa-qa"],
+    "milestone": "M1 · Seguridad y usuarios",
+    "labels": ["modulo/autenticacion", "prioridad/alta", "seguridad"]
+  },
+  {
+    "id": "HU-02", "titulo": "Registrar producto",
+    "como": "Administrador", "quiero": "registrar un producto", "para": "incorporarlo al inventario",
+    "criterios": ["Se solicitan los campos obligatorios.", "Se valida el identificador del producto.", "Se selecciona una categoría.", "Se registra cantidad y unidad de medida.", "Se puede definir stock mínimo si se habilitan alertas.", "No se permite guardar información incompleta."],
+    "trazabilidad": ["RF-02", "RF-16", "RN-01", "RN-02"],
+    "repos": ["spa-database", "spa-backend-api", "spa-frontend-web", "spa-qa"],
+    "milestone": "M2 · Catálogo de productos",
+    "labels": ["modulo/catalogo", "prioridad/alta"]
+  },
+  {
+    "id": "HU-03", "titulo": "Consultar inventario",
+    "como": "usuario autorizado", "quiero": "consultar el inventario", "para": "conocer la disponibilidad de productos e insumos",
+    "criterios": ["Se muestra el nombre o código.", "Se muestra la cantidad disponible.", "Se muestra unidad de medida.", "Se muestra estado.", "La información corresponde al stock vigente."],
+    "trazabilidad": ["RF-03", "RF-11", "RF-19", "RNF-08"],
+    "repos": ["spa-database", "spa-backend-api", "spa-frontend-web", "spa-qa"],
+    "milestone": "M2 · Catálogo de productos",
+    "labels": ["modulo/catalogo", "prioridad/alta"]
+  },
+  {
+    "id": "HU-04", "titulo": "Filtrar productos por categoría",
+    "como": "usuario autorizado", "quiero": "filtrar el inventario por categoría", "para": "encontrar rápidamente los productos que necesito",
+    "criterios": ["Se presentan las categorías configuradas.", "El filtro devuelve solo productos de la categoría seleccionada.", "El usuario puede retirar el filtro."],
+    "trazabilidad": ["RF-12"],
+    "repos": ["spa-backend-api", "spa-frontend-web", "spa-qa"],
+    "milestone": "M2 · Catálogo de productos",
+    "labels": ["modulo/catalogo", "prioridad/media"]
+  },
+  {
+    "id": "HU-05", "titulo": "Actualizar datos del producto",
+    "como": "Administrador", "quiero": "actualizar la información de un producto", "para": "mantener sus datos vigentes",
+    "criterios": ["Solo un usuario autorizado puede editar.", "El producto debe existir.", "Los campos obligatorios continúan siendo validados.", "La actualización no elimina el historial de movimientos."],
+    "trazabilidad": ["RF-04", "RN-02"],
+    "repos": ["spa-backend-api", "spa-frontend-web", "spa-qa"],
+    "milestone": "M2 · Catálogo de productos",
+    "labels": ["modulo/catalogo", "prioridad/media"]
+  },
+  {
+    "id": "HU-06", "titulo": "Registrar entrada",
+    "como": "usuario autorizado", "quiero": "registrar una entrada de inventario", "para": "reflejar el ingreso de existencias",
+    "criterios": ["El producto existe.", "La cantidad es mayor que cero.", "El stock aumenta correctamente.", "Se registra usuario, fecha y hora.", "El movimiento queda disponible en el historial."],
+    "trazabilidad": ["RF-06", "RF-09", "RF-10", "RN-03", "RN-04", "RN-07", "RNF-06"],
+    "repos": ["spa-database", "spa-backend-api", "spa-frontend-web", "spa-qa"],
+    "milestone": "M3 · Movimientos de inventario",
+    "labels": ["modulo/movimientos", "prioridad/alta"]
+  },
+  {
+    "id": "HU-07", "titulo": "Registrar salida",
+    "como": "usuario autorizado", "quiero": "registrar una salida de inventario", "para": "reflejar el consumo o retiro de existencias",
+    "criterios": ["El producto existe.", "La cantidad es mayor que cero.", "La cantidad no supera el stock disponible.", "El stock se actualiza correctamente.", "Se registra usuario, fecha y hora."],
+    "trazabilidad": ["RF-07", "RF-08", "RF-09", "RF-10", "RN-03", "RN-04", "RN-05", "RN-06", "RN-07", "RNF-02"],
+    "repos": ["spa-database", "spa-backend-api", "spa-frontend-web", "spa-qa"],
+    "milestone": "M3 · Movimientos de inventario",
+    "labels": ["modulo/movimientos", "prioridad/alta"]
+  },
+  {
+    "id": "HU-08", "titulo": "Consultar historial de movimientos",
+    "como": "usuario autorizado", "quiero": "consultar el historial de movimientos", "para": "realizar seguimiento del inventario",
+    "criterios": ["Se muestra fecha y hora.", "Se identifica producto.", "Se muestra cantidad.", "Se identifica entrada o salida.", "Se identifica el usuario responsable.", "El filtro por fecha funciona si es aprobado."],
+    "trazabilidad": ["RF-14", "RF-15", "RNF-06"],
+    "repos": ["spa-database", "spa-backend-api", "spa-frontend-web", "spa-qa"],
+    "milestone": "M3 · Movimientos de inventario",
+    "labels": ["modulo/historial", "prioridad/media"]
+  },
+  {
+    "id": "HU-09", "titulo": "Gestionar usuarios",
+    "como": "usuario con permisos de administración", "quiero": "crear y administrar usuarios", "para": "controlar quién puede acceder al sistema",
+    "criterios": ["Se pueden crear usuarios.", "Se asignan roles.", "Se pueden activar/desactivar cuentas.", "Los permisos dependen del rol.", "La función está restringida al rol autorizado."],
+    "trazabilidad": ["RF-01", "RF-13", "RNF-07", "RNF-09"],
+    "repos": ["spa-database", "spa-backend-api", "spa-frontend-web", "spa-qa"],
+    "milestone": "M1 · Seguridad y usuarios",
+    "labels": ["modulo/usuarios", "prioridad/alta", "seguridad"]
+  },
+  {
+    "id": "HU-10", "titulo": "Consultar alertas de bajo stock",
+    "como": "Administrador", "quiero": "consultar los productos con bajo stock", "para": "identificar cuáles requieren reposición",
+    "criterios": ["Se compara stock actual contra stock mínimo.", "Se identifican productos con stock_actual <= stock_mínimo y stock_actual > 0.", "Los agotados se diferencian de los de bajo stock.", "Solo roles autorizados pueden consultar las alertas."],
+    "trazabilidad": ["RF-16", "RF-17", "RF-18", "RN-09", "RN-14"],
+    "repos": ["spa-database", "spa-backend-api", "spa-frontend-web", "spa-qa"],
+    "milestone": "M4 · Alertas y control",
+    "labels": ["modulo/alertas", "prioridad/media", "requiere-validacion"]
+  },
+  {
+    "id": "HU-11", "titulo": "Identificar productos agotados",
+    "como": "usuario autorizado", "quiero": "identificar productos agotados", "para": "conocer cuáles no tienen existencias",
+    "criterios": ["Cuando stock_actual = 0, el estado es Agotado.", "No se permiten salidas adicionales.", "El producto sigue siendo consultable según permisos."],
+    "trazabilidad": ["RF-08", "RF-19", "RN-05", "RN-10"],
+    "repos": ["spa-database", "spa-backend-api", "spa-frontend-web", "spa-qa"],
+    "milestone": "M3 · Movimientos de inventario",
+    "labels": ["modulo/movimientos", "prioridad/alta"]
+  },
+  {
+    "id": "HU-12", "titulo": "Descontinuar producto",
+    "como": "Administrador", "quiero": "marcar un producto como descontinuado", "para": "dejar de manejarlo sin perder su información histórica",
+    "criterios": ["El producto puede cambiar a Descontinuado.", "La información histórica permanece.", "Se diferencia Descontinuado de Agotado.", "Las operaciones sobre productos descontinuados se comportan según la regla aprobada."],
+    "trazabilidad": ["RF-05", "RN-11", "RN-12"],
+    "repos": ["spa-database", "spa-backend-api", "spa-frontend-web", "spa-qa"],
+    "milestone": "M2 · Catálogo de productos",
+    "labels": ["modulo/catalogo", "prioridad/media"]
+  },
+  {
+    "id": "HU-13", "titulo": "Eliminar movimiento autorizado",
+    "como": "usuario con permisos de administración", "quiero": "eliminar un movimiento cuando exista una causa válida", "para": "corregir el registro",
+    "criterios": ["La opción solo está disponible para el rol autorizado.", "Se solicita confirmación.", "La eliminación no ocurre accidentalmente.", "Antes de habilitarla debe definirse una política de auditoría."],
+    "trazabilidad": ["RF-20", "RN-13", "RNF-06"],
+    "repos": ["spa-database", "spa-backend-api", "spa-frontend-web", "spa-qa"],
+    "milestone": "M4 · Alertas y control",
+    "labels": ["modulo/movimientos", "prioridad/baja", "requiere-validacion", "bloqueado"]
+  }
+]

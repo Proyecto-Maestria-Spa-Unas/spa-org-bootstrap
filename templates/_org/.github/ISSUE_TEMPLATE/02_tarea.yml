@@ -1,0 +1,15 @@
+name: Tarea técnica
+description: Trabajo técnico derivado de una historia de usuario
+labels: ["tarea"]
+body:
+  - type: input
+    id: hu
+    attributes: { label: Historia de usuario, placeholder: "__ORG__/spa-docs#12 (HU-07)" }
+    validations: { required: true }
+  - type: textarea
+    id: descripcion
+    attributes: { label: Descripción }
+    validations: { required: true }
+  - type: textarea
+    id: terminado
+    attributes: { label: Criterio de terminado, value: "- [ ] Código\n- [ ] Pruebas\n- [ ] Documentación" }

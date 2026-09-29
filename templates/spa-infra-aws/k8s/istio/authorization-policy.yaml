@@ -1,0 +1,14 @@
+# Solo el ingress gateway puede invocar la API (mínimo privilegio en la malla).
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: backend-api-solo-desde-gateway
+  namespace: spa-inventario
+spec:
+  selector:
+    matchLabels: { app: backend-api }
+  action: ALLOW
+  rules:
+    - from:
+        - source:
+            principals: ["cluster.local/ns/istio-system/sa/istio-ingressgateway-service-account"]

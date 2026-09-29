@@ -1,0 +1,4 @@
+*                        @__ORG__/equipo-datos
+/supabase/migrations/    @__ORG__/equipo-datos @__ORG__/equipo-backend
+/tests/                  @__ORG__/equipo-datos @__ORG__/equipo-qa
+/.github/                @__ORG__/equipo-devops

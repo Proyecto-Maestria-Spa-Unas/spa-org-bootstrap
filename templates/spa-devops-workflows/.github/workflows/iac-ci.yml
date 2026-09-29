@@ -1,0 +1,35 @@
+# CI de infraestructura: terraform fmt/validate por entorno y validación de manifiestos Kubernetes/Istio.
+# Check resultante: "calidad / pipeline"
+name: iac-ci
+on:
+  workflow_call:
+    inputs:
+      terraform-version: { type: string, default: "1.9.8" }
+      kubeconform-version: { type: string, default: "v0.6.7" }
+
+permissions:
+  contents: read
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ inputs.terraform-version }}
+      - name: terraform fmt
+        run: terraform fmt -check -recursive terraform
+      - name: terraform validate (por entorno)
+        run: |
+          set -euo pipefail
+          for d in terraform/envs/*/; do
+            echo "▶ $d"
+            terraform -chdir="$d" init -backend=false -input=false -no-color >/dev/null
+            terraform -chdir="$d" validate -no-color
+          done
+      - name: kubeconform (Kubernetes + CRDs de Istio ignorados)
+        run: |
+          set -euo pipefail
+          curl -sSL "https://github.com/yannh/kubeconform/releases/download/${{ inputs.kubeconform-version }}/kubeconform-linux-amd64.tar.gz" | tar xz
+          ./kubeconform -strict -summary -ignore-missing-schemas k8s/

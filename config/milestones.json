@@ -1,0 +1,8 @@
+[
+  { "title": "M0 · Fundación",                   "description": "Organización, CI/CD, esquema base, decisiones pendientes resueltas." },
+  { "title": "M1 · Seguridad y usuarios",        "description": "HU-01, HU-09 · RF-01, RF-13 · RNF-01, RNF-07." },
+  { "title": "M2 · Catálogo de productos",       "description": "HU-02, HU-03, HU-04, HU-05, HU-12 · RF-02..05, RF-11, RF-12, RF-19." },
+  { "title": "M3 · Movimientos de inventario",   "description": "HU-06, HU-07, HU-08, HU-11 · RF-06..10, RF-14, RF-15." },
+  { "title": "M4 · Alertas y control",           "description": "HU-10, HU-13 · RF-16..18, RF-20." },
+  { "title": "M5 · QA y salida a producción",    "description": "Puerta de QA activa, pruebas E2E, respaldo/recuperación (RNF-10), despliegue productivo." }
+]

@@ -1,0 +1,9 @@
+[
+  { "slug": "plataforma-admins", "description": "Administración de la organización, rulesets y hotfix de emergencia." },
+  { "slug": "equipo-backend",    "description": "Desarrollo de la API FastAPI y servicios Python." },
+  { "slug": "equipo-frontend",   "description": "Desarrollo de la interfaz React + Vite + Tailwind." },
+  { "slug": "equipo-datos",      "description": "Modelado PostgreSQL/PostGIS, Supabase, RLS, analítica (DuckDB)." },
+  { "slug": "equipo-devops",     "description": "CI/CD, AWS, Kubernetes, Istio, seguridad de la cadena de suministro." },
+  { "slug": "equipo-qa",         "description": "Aseguramiento de calidad, automatización de pruebas y puerta de merge." },
+  { "slug": "equipo-analistas",  "description": "Requisitos, historias de usuario, criterios de aceptación y validación con negocio." }
+]

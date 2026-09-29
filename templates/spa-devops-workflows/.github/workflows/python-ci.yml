@@ -1,0 +1,62 @@
+# CI Python: lint (ruff), formato, tipos (mypy), pruebas con cobertura mínima y auditoría de dependencias.
+# Check resultante: "calidad / pipeline"
+name: python-ci
+on:
+  workflow_call:
+    inputs:
+      python-version: { type: string, default: "3.12" }
+      working-directory: { type: string, default: "." }
+      package: { type: string, default: "app", description: "Paquete para mypy y cobertura" }
+      coverage-min: { type: number, default: 80 }
+      with-postgres: { type: boolean, default: true, description: "Levanta PostgreSQL+PostGIS de servicio" }
+
+permissions:
+  contents: read
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: ${{ inputs.with-postgres && 'postgis/postgis:16-3.4' || '' }}
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: app_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DB_URL: postgresql+psycopg://postgres:postgres@localhost:5432/app_test
+      JWT_SECRET: ci-only-not-a-secret
+      APP_ENV: test
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+          cache: pip
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
+      - name: Lint (ruff)
+        run: ruff check .
+      - name: Formato (ruff format)
+        run: ruff format --check .
+      - name: Tipos (mypy)
+        run: mypy ${{ inputs.package }}
+      - name: Pruebas y cobertura
+        run: pytest --cov=${{ inputs.package }} --cov-report=term-missing --cov-report=xml --cov-fail-under=${{ inputs.coverage-min }}
+      - name: Auditoría de dependencias (pip-audit)
+        run: pip-audit --skip-editable
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cobertura-python
+          path: ${{ inputs.working-directory }}/coverage.xml
+          if-no-files-found: ignore

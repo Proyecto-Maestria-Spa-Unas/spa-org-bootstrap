@@ -1,0 +1,34 @@
+name: Historia de usuario
+description: Nueva historia de usuario con criterios de aceptación y trazabilidad
+title: "HU-xx · "
+labels: ["historia-usuario"]
+body:
+  - type: input
+    id: rol
+    attributes: { label: Como, placeholder: "Administrador / Manicurista / usuario autorizado" }
+    validations: { required: true }
+  - type: input
+    id: necesidad
+    attributes: { label: Requiero }
+    validations: { required: true }
+  - type: input
+    id: proposito
+    attributes: { label: Para }
+    validations: { required: true }
+  - type: textarea
+    id: criterios
+    attributes: { label: Criterios de aceptación, value: "- [ ] \n- [ ] " }
+    validations: { required: true }
+  - type: input
+    id: trazabilidad
+    attributes: { label: Trazabilidad (RF / RN / RNF), placeholder: "RF-07 · RN-05 · RNF-02" }
+    validations: { required: true }
+  - type: checkboxes
+    id: repos
+    attributes:
+      label: Repositorios impactados
+      options:
+        - label: spa-database
+        - label: spa-backend-api
+        - label: spa-frontend-web
+        - label: spa-qa
