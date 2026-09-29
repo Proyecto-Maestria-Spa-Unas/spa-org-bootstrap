@@ -1,0 +1,329 @@
+{
+  "milestone": "Sprint 1 · Esqueleto andante",
+  "descripcion": "Objetivo: una categoría del catálogo viaja de PostgreSQL (Supabase) a la API dockerizada y se muestra en la interfaz con la identidad de marca. Duración: 2 semanas.",
+  "repos": [
+    "spa-docs",
+    "spa-database",
+    "spa-backend-api",
+    "spa-frontend-web",
+    "spa-qa"
+  ],
+  "issues": [
+    {
+      "id": "D1",
+      "repo": "spa-database",
+      "area": "Database",
+      "asignado": "mikeforeros",
+      "puntos": 5,
+      "titulo": "D1 · Modelo entidad-relación del inventario (catálogo + kardex)",
+      "labels": [
+        "tarea",
+        "area/database",
+        "modulo/catalogo",
+        "prioridad/alta"
+      ],
+      "criterios": [
+        "Diagrama ER en Mermaid publicado en spa-docs/docs/02-arquitectura/modelo-datos.md",
+        "Entidades: categoria, unidad_medida, producto, movimiento (append-only, estilo kardex)",
+        "Cada regla RN-01..RN-14 mapeada a una restricción, trigger o regla de API",
+        "Movimiento con columnas de costo previstas (cantidad, costo_unitario, saldo) sin implementar la valoración",
+        "PR revisado por arquitectura antes de escribir migraciones"
+      ]
+    },
+    {
+      "id": "D2",
+      "repo": "spa-database",
+      "area": "Database",
+      "asignado": "mikeforeros",
+      "puntos": 5,
+      "titulo": "D2 · Migración del catálogo: categoria, unidad_medida, producto",
+      "labels": [
+        "tarea",
+        "area/database",
+        "modulo/catalogo",
+        "prioridad/alta"
+      ],
+      "criterios": [
+        "Migración idempotente en supabase/migrations",
+        "RN-01: código de producto único (citext)",
+        "RN-02: campos obligatorios NOT NULL; RN-06: CHECK stock_actual >= 0",
+        "Función inventario.estado_inventario() que implementa RN-08..RN-11",
+        "RLS activa en las tres tablas"
+      ]
+    },
+    {
+      "id": "D3",
+      "repo": "spa-database",
+      "area": "Database",
+      "asignado": "mikeforeros",
+      "puntos": 2,
+      "titulo": "D3 · Seed del catálogo inicial (sección 9)",
+      "labels": [
+        "tarea",
+        "area/database",
+        "modulo/catalogo",
+        "prioridad/media"
+      ],
+      "criterios": [
+        "8 categorías y 12 unidades de medida de la especificación",
+        "INSERT ... ON CONFLICT DO NOTHING (re-ejecutable)",
+        "Prueba SQL que cuenta categorías y unidades"
+      ]
+    },
+    {
+      "id": "D4",
+      "repo": "spa-database",
+      "area": "Database",
+      "asignado": "mikeforeros",
+      "puntos": 3,
+      "titulo": "D4 · Pruebas SQL de reglas de negocio del catálogo",
+      "labels": [
+        "tarea",
+        "area/database",
+        "area/qa",
+        "modulo/catalogo",
+        "prioridad/alta"
+      ],
+      "criterios": [
+        "Código duplicado es rechazado (RN-01)",
+        "Stock negativo es rechazado (RN-06)",
+        "estado_inventario devuelve Disponible, Bajo stock y Agotado en sus fronteras (RN-08..RN-10)",
+        "Descontinuado se diferencia de Agotado (RN-11)",
+        "Pipeline calidad / pipeline en verde"
+      ]
+    },
+    {
+      "id": "B1",
+      "repo": "spa-backend-api",
+      "area": "Backend",
+      "asignado": "ivonnelizethmoreno-cloud",
+      "puntos": 3,
+      "titulo": "B1 · Entorno local con Docker Compose (API + PostgreSQL/PostGIS)",
+      "labels": [
+        "tarea",
+        "area/backend",
+        "area/devops",
+        "prioridad/alta"
+      ],
+      "criterios": [
+        "docker-compose.yml con servicios api y db (postgis/postgis:16) y healthchecks",
+        "La API arranca con docker compose up y responde /api/v1/health",
+        "Variables desde .env; ningún secreto en el repositorio",
+        "README actualizado con la sección 🐳 Docker Compose (Windows y Linux)",
+        "La imagen sigue corriendo como usuario no root"
+      ]
+    },
+    {
+      "id": "B2",
+      "repo": "spa-backend-api",
+      "area": "Backend",
+      "asignado": "ivonnelizethmoreno-cloud",
+      "puntos": 3,
+      "titulo": "B2 · Contrato OpenAPI v0 del catálogo (contract-first)",
+      "labels": [
+        "tarea",
+        "area/backend",
+        "area/frontend",
+        "modulo/catalogo",
+        "prioridad/alta"
+      ],
+      "criterios": [
+        "docs/openapi/catalogo-v0.yaml con GET /categorias, GET /unidades-medida, GET /productos?categoria=",
+        "Esquemas de respuesta y de error (problem+json) definidos",
+        "Revisado y aprobado por equipo-frontend en el PR",
+        "Publicado antes del día 3 del sprint para desbloquear a frontend"
+      ]
+    },
+    {
+      "id": "B3",
+      "repo": "spa-backend-api",
+      "area": "Backend",
+      "asignado": "ivonnelizethmoreno-cloud",
+      "puntos": 5,
+      "titulo": "B3 · Dominio del catálogo con arquitectura hexagonal",
+      "labels": [
+        "tarea",
+        "area/backend",
+        "modulo/catalogo",
+        "prioridad/alta"
+      ],
+      "criterios": [
+        "app/domain: Producto, Categoria, UnidadMedida y EstadoInventario sin dependencias de frameworks",
+        "RN-08..RN-11 como funciones puras con pruebas unitarias de fronteras",
+        "app/application/ports: CatalogoRepository (interfaz)",
+        "Cobertura >= 80 % mantenida"
+      ]
+    },
+    {
+      "id": "B4",
+      "repo": "spa-backend-api",
+      "area": "Backend",
+      "asignado": "ivonnelizethmoreno-cloud",
+      "puntos": 3,
+      "titulo": "B4 · Endpoint GET /api/v1/categorias (esqueleto andante)",
+      "labels": [
+        "tarea",
+        "area/backend",
+        "modulo/catalogo",
+        "prioridad/alta"
+      ],
+      "criterios": [
+        "Adaptador SQLAlchemy que implementa CatalogoRepository",
+        "Respuesta conforme al contrato OpenAPI v0",
+        "Prueba de integración contra PostGIS del servicio de CI",
+        "Sin DDL en la API: el esquema proviene de spa-database"
+      ]
+    },
+    {
+      "id": "F1",
+      "repo": "spa-docs",
+      "area": "Frontend",
+      "asignado": "Estefa44445",
+      "puntos": 3,
+      "titulo": "F1 · Investigación de marca: benchmark de spas y perfil de clientas",
+      "labels": [
+        "tarea",
+        "area/frontend",
+        "area/docs",
+        "prioridad/alta"
+      ],
+      "criterios": [
+        "Benchmark de 6 a 8 spas de uñas en Colombia: paleta, tipografía, tono y posicionamiento",
+        "Encuesta o entrevistas breves a clientas y personal del spa (mínimo 10 respuestas)",
+        "Conclusiones con fuentes citadas en docs/04-marca/investigacion.md",
+        "Arquetipo y atributos de marca propuestos y justificados"
+      ]
+    },
+    {
+      "id": "F2",
+      "repo": "spa-docs",
+      "area": "Frontend",
+      "asignado": "Gleidy725",
+      "puntos": 5,
+      "titulo": "F2 · Manual de marca v1: color, tipografía y tono de voz",
+      "labels": [
+        "tarea",
+        "area/frontend",
+        "area/docs",
+        "prioridad/alta"
+      ],
+      "criterios": [
+        "Paleta primaria, secundaria y neutros con esquema armónico justificado (análogo, complementario o triádico)",
+        "Tabla de contraste: todo par texto/fondo cumple WCAG 2.2 AA (4.5:1 texto normal)",
+        "Estados del inventario distinguibles sin depender solo del color (color + ícono + texto)",
+        "Tipografías con licencia libre (Google Fonts) y escala tipográfica",
+        "Tono de voz para mensajes de la interfaz (éxito, error, confirmación)"
+      ]
+    },
+    {
+      "id": "F3",
+      "repo": "spa-frontend-web",
+      "area": "Frontend",
+      "asignado": "Gleidy725",
+      "puntos": 3,
+      "titulo": "F3 · Design tokens de la marca en Tailwind",
+      "labels": [
+        "tarea",
+        "area/frontend",
+        "prioridad/alta"
+      ],
+      "criterios": [
+        "Tokens de color, tipografía, radios y espaciado en src/index.css (@theme de Tailwind v4)",
+        "src/constants/theme.js usa los tokens para los 4 estados del inventario",
+        "Ningún color hexadecimal suelto en componentes",
+        "Prueba que verifica los 4 estados"
+      ]
+    },
+    {
+      "id": "F4",
+      "repo": "spa-frontend-web",
+      "area": "Frontend",
+      "asignado": "Estefa44445",
+      "puntos": 5,
+      "titulo": "F4 · Biblioteca de componentes base documentada con Storybook",
+      "labels": [
+        "tarea",
+        "area/frontend",
+        "prioridad/media"
+      ],
+      "criterios": [
+        "Storybook configurado con historias de Button, Input, Badge (estado de inventario), Alert y Card",
+        "Componentes presentacionales, configurados por props y accesibles (roles y etiquetas ARIA)",
+        "Pruebas con Testing Library para cada componente",
+        "Cobertura del proyecto >= 70 % mantenida"
+      ]
+    },
+    {
+      "id": "F5",
+      "repo": "spa-frontend-web",
+      "area": "Frontend",
+      "asignado": "Estefa44445",
+      "puntos": 3,
+      "titulo": "F5 · Vista de categorías contra el contrato OpenAPI (esqueleto andante)",
+      "labels": [
+        "tarea",
+        "area/frontend",
+        "modulo/catalogo",
+        "prioridad/alta"
+      ],
+      "criterios": [
+        "Servicio src/services/api/catalogo.js conforme al contrato v0",
+        "Mientras B4 no esté listo, datos simulados con MSW generados del contrato",
+        "Estados de carga, vacío y error con los componentes de F4",
+        "Desplegado en Vercel (Preview) consumiendo la API real al cierre del sprint"
+      ]
+    },
+    {
+      "id": "Q1",
+      "repo": "spa-qa",
+      "area": "QA",
+      "asignado": "jhonjairosolerumbarila-ops",
+      "puntos": 3,
+      "titulo": "Q1 · Plan de pruebas del esqueleto andante y del catálogo",
+      "labels": [
+        "tarea",
+        "area/qa",
+        "modulo/catalogo",
+        "prioridad/media"
+      ],
+      "criterios": [
+        "Casos de prueba de HU-02, HU-03 y HU-04 derivados de sus criterios de aceptación",
+        "Prueba de API de GET /categorias en suites/api marcada con @pytest.mark.hu",
+        "Prueba E2E de la vista de categorías en suites/web",
+        "Criterio de salida del sprint documentado"
+      ]
+    },
+    {
+      "id": "A1",
+      "repo": "spa-docs",
+      "area": "Docs",
+      "asignado": "ivonnelizethmoreno-cloud",
+      "puntos": 2,
+      "titulo": "A1 · Resolver DEC-01, DEC-02, DEC-03 y DEC-10 con el grupo",
+      "labels": [
+        "tarea",
+        "area/docs",
+        "decision-pendiente",
+        "prioridad/alta"
+      ],
+      "criterios": [
+        "Sesión de decisión con el grupo y acta",
+        "Un ADR por decisión, cerrando su issue DEC",
+        "Matriz de permisos por rol actualizada (entrada para RLS y la API en el Sprint 2)",
+        "Catálogo definitivo validado (entrada para D3)"
+      ]
+    }
+  ],
+  "decisiones_nuevas": [
+    {
+      "titulo": "DEC-11 · ¿Incluir valoración del inventario (costo promedio ponderado) en el alcance?",
+      "cuerpo": "La especificación excluye contabilidad y compras como proceso financiero. Se propone incluir solo la VALORACIÓN del inventario (costo de cada movimiento y saldo tipo kardex), sin libros contables ni facturación. Marco de referencia: NIIF para las Pymes, Sección 13 (Inventarios), vigente en Colombia por el Decreto 2420 de 2015; fórmulas de costo admitidas: PEPS o promedio ponderado. Debe validarse con el grupo y con un contador antes de implementarse.",
+      "impacta": [
+        "D1",
+        "RF-10",
+        "HU-06",
+        "HU-07"
+      ]
+    }
+  ]
+}
