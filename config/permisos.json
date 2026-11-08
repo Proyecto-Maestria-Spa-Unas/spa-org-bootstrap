@@ -14,7 +14,7 @@
   },
   "spa-database": {
     "plataforma-admins": "admin",
-    "equipo-datos": "triage",
+    "equipo-datos": "push",
     "equipo-backend": "push",
     "equipo-qa": "push",
     "equipo-devops": "push",
