@@ -8,13 +8,13 @@
     "equipo-analistas": "maintain",
     "equipo-backend": "push",
     "equipo-frontend": "push",
-    "equipo-datos": "push",
+    "equipo-datos": "triage",
     "equipo-qa": "push",
     "equipo-devops": "push"
   },
   "spa-database": {
     "plataforma-admins": "admin",
-    "equipo-datos": "maintain",
+    "equipo-datos": "triage",
     "equipo-backend": "push",
     "equipo-qa": "push",
     "equipo-devops": "push",
@@ -24,7 +24,7 @@
   "spa-backend-api": {
     "plataforma-admins": "admin",
     "equipo-backend": "maintain",
-    "equipo-datos": "push",
+    "equipo-datos": "triage",
     "equipo-qa": "push",
     "equipo-devops": "push",
     "equipo-frontend": "pull",
